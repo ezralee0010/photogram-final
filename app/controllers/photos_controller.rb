@@ -12,13 +12,22 @@ class PhotosController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    ### needs to redirect to the photo when I decide to actually sign in ###
+    if current_user != nil
+      the_id = params.fetch("path_id")
 
-    matching_photos = Photo.where({ :id => the_id })
+      matching_photos = Photo.where({ :id => the_id })
 
-    @the_photo = matching_photos.at(0)
+      @the_photo = matching_photos.at(0)
 
-    render({ :template => "photos/show" })
+      current_id = @the_photo.owner_id
+      
+      @current_name = User.find(current_id).username
+    
+      render({ :template => "photos/show" })
+    else
+      redirect_to "/users/sign_in"
+    end
   end
 
   def create

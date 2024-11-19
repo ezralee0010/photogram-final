@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
+  # Routes for the User request resource:
+ 
+  # READ
+  get("/users", { :controller => "users", :action => "index" })
+  
+  get("/users/:path_id", { :controller => "users", :action => "show" })
+
+
+
   # Routes for the Follow request resource:
 
   # CREATE
@@ -80,5 +89,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root to: "photos#index"
+  root to: "users#index"
 end
