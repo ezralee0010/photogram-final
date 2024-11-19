@@ -43,7 +43,16 @@
 
         <td>
           <% if current_user != nil %>
-            <%= follow_request = FollowRequest.find_by(recipient_id: a_user.id, sender_id: current_user.id) %>
+            <% follow_request = FollowRequest.find_by(recipient_id: a_user.id, sender_id: current_user.id) %>
+            <% if follow_request %>
+              <% if follow_request.status == "pending" %>
+                Request sent. Cancel
+              <% elsif follow_request.status == "accepted" %>
+                Unfollow
+              <% end %>
+            <% else %>
+              Follow
+            <% end %>
             
           <% end %>
         </td>

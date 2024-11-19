@@ -23,6 +23,8 @@ class PhotosController < ApplicationController
       current_id = @the_photo.owner_id
       
       @current_name = User.find(current_id).username
+
+      @list_of_comments = Comment.where({ :photo_id => @the_photo.id }).order(created_at: :asc)
     
       render({ :template => "photos/show" })
     else

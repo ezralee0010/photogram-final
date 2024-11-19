@@ -51,14 +51,9 @@
   </div>
 </div>
 
-<hr>
-
-
 <div>
   <div>
-    <h2>
       Edit photo
-    </h2>
 
     <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
       <div>
@@ -112,4 +107,45 @@
   <a href="/delete_photo/<%= @the_photo.id %>">
     Delete photo
   </a>
+</div>
+
+<h2>Comments</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Commenter
+        </th>
+
+        <th>
+          Comment
+        </th>
+
+        <th>
+          Posted
+        </th>
+
+      </tr>
+
+      <% @list_of_comments.each do |a_comment| %>
+        <tr>
+          <td>
+            <% current_commenter = a_comment.author_id %>
+            <%= User.find(current_commenter).username %>
+          </td>
+
+          <td>
+            <%= a_comment.body %>
+          </td>
+
+          <td>
+            <%= a_comment.created_at%>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>
