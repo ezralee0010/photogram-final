@@ -14,4 +14,24 @@ class UsersController < ApplicationController
 
     render({ :template => "users/show" })
   end
+
+  def liked_photos
+    @the_username2 = params.fetch("username")
+
+    @user2 = User.find_by(username: params[:username])
+
+    @list_of_photos_2 = Like.where(fan_id: @user2)
+
+    render({ :template => "users/liked_photos" })
+  end
+
+  def feed
+    @the_username3 = params.fetch("username")
+
+    @user3 = User.find_by(username: params[:username])
+
+    @list_of_photos3 = Like.where(fan_id: @user3)
+
+    render({ :template => "users/feed" })
+  end
 end
