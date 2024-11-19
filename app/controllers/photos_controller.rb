@@ -1,6 +1,10 @@
 class PhotosController < ApplicationController
   def index
-    matching_photos = Photo.all
+    #matching_photos = Photo.all
+
+    matching_photos = Photo.joins(:owner)
+                           .where(users: { private: false })
+                           .order(created_at: :desc)
 
     @list_of_photos = matching_photos.order({ :created_at => :desc })
 
