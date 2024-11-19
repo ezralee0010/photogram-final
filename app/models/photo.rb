@@ -13,4 +13,5 @@
 #
 class Photo < ApplicationRecord
   belongs_to(:owner, foreign_key: "owner_id", class_name: "User")
+  #mount_uploader :image, ImageUploader
 end

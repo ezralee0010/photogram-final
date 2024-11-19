@@ -37,7 +37,7 @@ class PhotosController < ApplicationController
     the_photo = Photo.new
     the_photo.caption = params.fetch("query_caption")
     the_photo.comments_count = "0"
-    the_photo.image = params.fetch("query_image")
+    the_photo.image = params.fetch(:image)
     the_photo.likes_count = "0"
     the_photo.owner_id = current_user.id
     

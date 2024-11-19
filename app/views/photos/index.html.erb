@@ -10,7 +10,7 @@
   <div>
 
     <% if current_user != nil %>
-      <form action="/insert_photo" method="post">
+      <form action="/insert_photo" method="post" class="form-horizontal" enctype="multipart/form-data">
         <div>
           <label for="caption_box">
             Caption
@@ -23,8 +23,7 @@
           <label for="image_box">
             Image
           </label>
-
-          <input type="text" id="image_box" name="query_image">
+          <input type="file" id="image_box" name="query_image" class="form-control">
         </div>
 
         <button>
@@ -73,7 +72,7 @@
         </td>
 
         <td>
-          <%= a_photo.image %>
+          <img src="<%= a_photo.image %>" class="img-responsive">
         </td>
 
         <td>
