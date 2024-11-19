@@ -51,7 +51,14 @@
                 Unfollow
               <% end %>
             <% else %>
-              Follow
+              <div>
+                <form action="/insert_follow_request" method="post">
+                  <button>
+                    Follow
+                    <%= a_user.id %>
+                  </button>
+                </form>
+              </div>
             <% end %>
             
           <% end %>
