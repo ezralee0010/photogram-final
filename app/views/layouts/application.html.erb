@@ -6,11 +6,17 @@
   </head>
 
   <body>
-    
-    <a href="/users/sign_up">Sign up</a>
-    <a href="/users/sign_in">Sign in</a>
-    <a href="/users/sign_out">Sign out</a>
-    <a href="/users/edit_profile">Edit profile</a>
+  <ul>
+    <li><a href="/users">All users</a></li>
+    <li><a href="/photos">All public photos</a></li>
+    <% if current_user!= nil %>
+      <li><a href="/users/sign_out">Sign out</a></li>
+      <li><a href="/users/edit_profile">Edit profile</a></li>
+    <% else %>
+      <li><a href="/users/sign_up">Sign up</a></li>
+      <li><a href="/users/sign_in">Sign in</a></li>
+    <% end %>
+  </ul>
 
     <%= yield %>
   </body>
