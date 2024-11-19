@@ -33,5 +33,7 @@ class UsersController < ApplicationController
     @list_of_photos3 = Like.where(fan_id: @user3)
 
     render({ :template => "users/feed" })
+
+    #use params hash and then fetch. 
   end
 end
