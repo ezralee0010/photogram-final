@@ -6,11 +6,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    @the_username = params.fetch("username")
 
-    matching_users = User.where({ :id => the_id })
+    @user = User.find_by(username: params[:username])
 
-    @the_user = matching_users.at(0)
+    @list_of_photos = Photo.where(owner_id: @user).order(updated_at: :desc)
 
     render({ :template => "users/show" })
   end

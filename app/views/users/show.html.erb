@@ -1,29 +1,108 @@
 <div>
   <div>
-    <h1> <%= @the_user.username %> </h1>
+    <h1>
+      <%= @the_username %>
+    </h1>
 
     <dl>
       <dt>
         Private
       </dt>
       <dd>
-        <%= @the_user.private %>
+        <%= user_private_status = @user.private %>
       </dd>
+
 
       <dt>
         Followers
       </dt>
       <dd>
-        <%= FollowRequest.where(recipient_id: @the_user.id, status: "accepted").count %>
+        <%= FollowRequest.where(recipient_id: @user, status: "accepted").count %>
       </dd>
 
       <dt>
         Following
       </dt>
       <dd>
-        <%= FollowRequest.where(sender_id: @the_user.id, status: "accepted").count %>
+        <%= FollowRequest.where(sender_id: @user, status: "accepted").count %>
       </dd>
 
+
+      <ul>
+        <li><a href="/users/<%= @the_username %>">Profile</a></li>
+        <li>Liked photos</li>
+        <li>Feed</li>
+        <li>Discover</li>
+      </ul>
+
+
+
     </dl>
+  </div>
+</div>
+
+<h2>Own photos (<%= @list_of_photos.count%>)</h2>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Image
+        </th>
+
+        <th>
+          Owner
+        </th>
+
+        <th>
+        Caption
+        </th>
+
+        <th>
+        Posted
+        </th>
+
+        <th>
+        Likes
+        </th>
+
+        <th>
+        </th>
+
+      </tr>
+
+      <% @list_of_photos.each do |a_post| %>
+      <tr>
+        <td>
+          <%= a_post.image %>
+        </td>
+
+        <td>
+          <%= @the_username %>
+        </td>
+
+        <td>
+          <%= a_post.caption %>
+        </td>
+
+        <td>
+          <%= a_post.created_at %>
+        </td>
+
+        <td>
+          <%= Like.where(photo_id: a_post).count %>
+        </td>
+
+        <td>
+          <a href="/photos/<%= a_post.id %>">
+            Show details
+          </a>
+        </td>
+
+      </tr>
+      <% end %>
+    </table>
   </div>
 </div>
