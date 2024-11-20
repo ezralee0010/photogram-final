@@ -47,6 +47,28 @@
         <%= @the_photo.comments_count %>
       </dd>
 
+      <dt>
+        Add a fan
+      </dt>
+      <dd>
+      <% current_like = Like.find_by(fan_id: current_user.id, photo_id: @the_photo.id) %>
+      <% if !current_like %>
+        <form action="/insert_like" method="post" class="form-horizontal" enctype="multipart/form-data">
+          <input type="hidden" id="fan_id_box" name="query_fan_id" value="<%= current_user.id %>">
+          <input type="hidden" id="photo_id_box" name="query_photo_id" value="<%= @the_photo.id %>">
+          <button>
+            Like
+          </button>
+        </form>
+      <% else %>
+        <form action="/delete_like/<%= current_like.id %>" method="get" class="form-horizontal" enctype="multipart/form-data">
+          <input type="hidden" id="like_id" name="query_fan_id" value="current_like.id">
+          <button>
+            Unlike
+          </button>
+        </form>
+      <% end %>
+      </dd>
     </dl>
   </div>
 </div>
