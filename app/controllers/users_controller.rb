@@ -30,10 +30,26 @@ class UsersController < ApplicationController
 
     @user3 = User.find_by(username: params[:username])
 
-    @list_of_photos3 = Like.where(fan_id: @user3)
+    following_ids = FollowRequest.where(sender_id: @user3.id, status: "accepted").pluck(:recipient_id)
+
+    @list_of_photos3 = Photo.where(owner_id: following_ids).order(created_at: :desc)
 
     render({ :template => "users/feed" })
 
     #use params hash and then fetch. 
+  end
+
+
+  def discover
+    @the_username4 = params.fetch("username")
+
+    @user4 = User.find_by(username: params[:username])
+
+    following_ids = FollowRequest.where(sender_id: @user4.id, status: "accepted").pluck(:recipient_id)
+    liked_photo_ids = Like.where(fan_id: following_ids).pluck(:photo_id)
+    @list_of_photos4 = Photo.where(id: liked_photo_ids).order(created_at: :desc)
+
+    render({ :template => "users/discover" })
+
   end
 end

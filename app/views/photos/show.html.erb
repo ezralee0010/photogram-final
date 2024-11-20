@@ -52,6 +52,7 @@
 </div>
 
 <div>
+  <% if current_user.username == @current_name %>
   <div>
       Edit photo
 
@@ -101,12 +102,15 @@
       </button>
     </form>
   </div>
+  <% end %>
 </div>
 
 <div>
+  <% if current_user.username == @current_name %>
   <a href="/delete_photo/<%= @the_photo.id %>">
-    Delete photo
+    Delete this photo
   </a>
+  <% end %>
 </div>
 
 <h2>Comments</h2>

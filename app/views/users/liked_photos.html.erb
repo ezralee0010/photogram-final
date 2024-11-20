@@ -9,7 +9,7 @@
         Private
       </dt>
       <dd>
-        <%= user_private_status = @user2.private %>
+        <%= @user2.private %>
       </dd>
 
 
@@ -32,7 +32,7 @@
         <li><a href="/users/<%= @the_username2 %>">Profile</a></li>
         <li><a href="/users/<%= @the_username2 %>/liked_photos">Liked photos</a></li>
         <li><a href="/users/<%= @the_username2 %>/feed">Feed</a></li>
-        <li>Discover</li>
+        <li><a href="/users/<%= @the_username2 %>/discover">Discover</a></li>
       </ul>
 
     </dl>

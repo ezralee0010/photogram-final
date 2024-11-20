@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   
   get("/users/:username/feed", { :controller => "users", :action => "feed" })
 
+  get("/users/:username/discover", { :controller => "users", :action => "discover" })
+
   # Routes for the Follow request resource:
 
   # CREATE
