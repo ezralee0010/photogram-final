@@ -36,14 +36,12 @@ class PhotosController < ApplicationController
 
   def create
     the_photo = Photo.new
-    the_photo.caption = params.fetch("query_caption")
-    the_photo.comments_count = params.fetch("query_comments_count")
-    #the_photo.image = params.fetch(:image)
-    
-    the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.owner_id = params.fetch("query_owner")
-    
-    ###@user.avatar = params.fetch(:avatar)
+    the_photo.caption = params[:photo][:caption]
+    the_photo.comments_count = params[:photo][:comments_count]
+    the_photo.likes_count = params[:photo][:likes_count]
+    the_photo.owner_id = params[:photo][:owner_id]
+  
+    the_photo.image = params[:photo][:image]
     
     if the_photo.valid?
       the_photo.save
