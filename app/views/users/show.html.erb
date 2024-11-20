@@ -18,6 +18,55 @@
       </dt>
       <dd>
         <%= FollowRequest.where(recipient_id: @user, status: "accepted").count %>
+
+        <% if current_user.username != @user.username %>
+          <% follow_request = FollowRequest.find_by(sender_id: current_user.id, recipient_id: @user.id)%>
+          <% if follow_request == nil %>
+            <form action="/insert_follow_request" method="post">
+              <input type="hidden" id="recipient_box" name="query_recipient_id" value="<%= @user.id %>">
+              <input type="hidden" id="sender_box" name="query_sender_id" value="<%= current_user.id %>">
+              <% if @user.private %>
+                <input type="hidden" id="status_box" name="query_status" value="pending">
+              <% else %>
+                <input type="hidden" id="status_box" name="query_status" value="accepted">
+              <% end %>
+              <button>
+                Follow
+              </button>
+            </form>
+        <% elsif follow_request.status == "accepted" %>
+          <%= link_to "Unfollow", "/delete_follow_request/#{follow_request.id}", method: :get, data: { confirm: "Are you sure you want to unfollow?" } %>
+        <% end %>
+      <% elsif current_user.username == @user.username %>
+        <h4>Pending follow requests</h4>
+        <ul>
+          <% pending_requests = FollowRequest.where(recipient_id: @user.id, status: "pending") %>
+          <% pending_requests.each do |follow_request| %>
+            <% sender = User.find(follow_request.sender_id) %>
+            <li><%= sender.username %></li>
+              <form action="/modify_follow_request" method="post">
+                <input type="hidden" id="following_id" name="path_id" value="<%= follow_request.id %>">
+                <input type="hidden" id="recipient_box" name="query_recipient_id" value="<%= current_user.id %>">
+                <input type="hidden" id="sender_box" name="query_sender_id" value="<%= sender.id %>">
+                <input type="hidden" id="status_box" name="query_status" value="accepted">
+                <button>
+                  Accept
+                </button>
+              </form>
+
+              <form action="/modify_follow_request" method="post">
+                <input type="hidden" id="following_id" name="path_id" value="<%= follow_request.id %>">
+                <input type="hidden" id="recipient_box" name="query_recipient_id" value="<%= current_user.id %>">
+                <input type="hidden" id="sender_box" name="query_sender_id" value="<%= sender.id %>">
+                <input type="hidden" id="status_box" name="query_status" value="rejected">
+                <button>
+                  Reject
+                </button>
+              </form>
+          <% end %>
+        </ul>
+      <% end %>
+
       </dd>
 
       <dt>

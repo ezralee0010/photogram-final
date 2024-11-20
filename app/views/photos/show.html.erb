@@ -61,12 +61,7 @@
           </button>
         </form>
       <% else %>
-        <form action="/delete_like/<%= current_like.id %>" method="get" class="form-horizontal" enctype="multipart/form-data">
-          <input type="hidden" id="like_id" name="query_fan_id" value="current_like.id">
-          <button>
-            Unlike
-          </button>
-        </form>
+        <%= link_to "Unlike", "/delete_like/#{current_like.id}", method: :get, data: { confirm: "Are you sure you want to unlike?" }, remote: true %>
       <% end %>
       </dd>
     </dl>
@@ -175,3 +170,16 @@
     </table>
   </div>
 </div>
+
+<h3>Add a new comment</h3>
+
+<form action="/insert_comment" method="post">
+  <input type="hidden" id="photo_box" name="query_photo_id" value="<%= @the_photo.id %>">
+
+  <input type="hidden" id="author_box" name="query_author_id" value="<%= current_user.id %>">
+  
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+  <button>Add comment</button>
+</form>
