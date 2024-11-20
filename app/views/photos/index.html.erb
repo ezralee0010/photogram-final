@@ -14,13 +14,18 @@
           <label for="image_box">
             Image
           </label>
-          <input type="file" id="image_box" name="query_image" class="form-control">
-
+          <input type="file" id="image_box" name="photo[image]" class="form-control">
           <label for="caption_box">
             Caption
           </label>
-
           <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo"></textarea>
+
+
+          <input type="hidden" id="comment_box" name="query_comments_count" value="0">
+          <input type="hidden" id="likes_box" name="query_likes_count" value="0">
+          <input type="hidden" id="query_box" name="query_owner" value="<%= current_user.id %>">
+
+
 
         <button>
           Add photo
